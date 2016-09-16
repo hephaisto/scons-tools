@@ -22,10 +22,10 @@ def make_debian(packagename, files, env, additional_dependencies=""):
 	controlfile=env.Textfile(target="{}/DEBIAN/control".format(package_folder), source=
 		[
 			env.File("{}/{}.template".format(PACKAGE_TMP_DIR,packagename)),
-			"Version: $VERSION_STRING\nArchitecture: $TARGET_ARCH\nDepends: ",
+			"Version: $VERSION_STRING\nDepends: ",
 			dependency_string,
 			additional_dependencies,
-			"\n"
+			"\nArchitecture: $TARGET_ARCH\n"
 		],TEXTFILESUFFIX="",LINESEPARATOR="")
 	
 
