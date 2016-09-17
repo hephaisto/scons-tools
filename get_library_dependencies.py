@@ -5,7 +5,6 @@ import SCons.Script as scons
 ADMINDIR="/var/lib/dpkg/info"
 regex_objdump=re.compile("\s*NEEDED\s+(.*)$")
 regex_libname=re.compile("^(.+?) ([\d\.]+) (.+)$")
-TARGET_ARCHITECTURE="amd64"
 
 package_buffer={}
 
@@ -52,7 +51,7 @@ def get_package_for_libfile(libfile):
     # try different shlib info files
     shlibs_file="{}/{}{}.shlibs".format(ADMINDIR,modify_libname(libname),version)
     if not os.path.exists(shlibs_file):
-        shlibs_file="{}/{}{}:{}.shlibs".format(ADMINDIR,modify_libname(libname),version,TARGET_ARCHITECTURE)
+        shlibs_file="{}/{}{}:{}.shlibs".format(ADMINDIR,modify_libname(libname),version,env["TARGET_ARCH"])
         if not os.path.exists(shlibs_file):
             raise Exception("no suitable shlibs file found for {} version {}".format(libname,version))
 
